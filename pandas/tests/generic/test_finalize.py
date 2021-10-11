@@ -251,20 +251,17 @@ _all_methods = [
         operator.methodcaller("to_period", freq="D"),
     ),
     pytest.param(
-        (pd.DataFrame, frame_mi_data, operator.methodcaller("isin", [1])),
-        marks=not_implemented_mark,
+        (pd.DataFrame, frame_mi_data, operator.methodcaller("isin", [1]))
     ),
     pytest.param(
-        (pd.DataFrame, frame_mi_data, operator.methodcaller("isin", pd.Series([1]))),
-        marks=not_implemented_mark,
+        (pd.DataFrame, frame_mi_data, operator.methodcaller("isin", pd.Series([1])))
     ),
     pytest.param(
         (
             pd.DataFrame,
             frame_mi_data,
             operator.methodcaller("isin", pd.DataFrame({"A": [1]})),
-        ),
-        marks=not_implemented_mark,
+        )
     ),
     (pd.DataFrame, frame_data, operator.methodcaller("swapaxes", 0, 1)),
     (pd.DataFrame, frame_mi_data, operator.methodcaller("droplevel", "A")),

@@ -10588,15 +10588,15 @@ NaN 12.3   33.0
                     for i, col in enumerate(self.columns)
                 ),
                 axis=1,
-            )
+            ) .__finalize__(self, method="isin")
         elif isinstance(values, Series):
             if not values.index.is_unique:
                 raise ValueError("cannot compute isin with a duplicate axis.")
-            return self.eq(values.reindex_like(self), axis="index")
+            return self.eq(values.reindex_like(self), axis="index").__finalize__(self, method="isin")
         elif isinstance(values, DataFrame):
             if not (values.columns.is_unique and values.index.is_unique):
                 raise ValueError("cannot compute isin with a duplicate axis.")
-            return self.eq(values.reindex_like(self))
+            return self.eq(values.reindex_like(self)).__finalize__(self, method="isin")
         else:
             if not is_list_like(values):
                 raise TypeError(
@@ -10608,7 +10608,7 @@ NaN 12.3   33.0
                 algorithms.isin(self.values.ravel(), values).reshape(self.shape),
                 self.index,
                 self.columns,
-            )
+            ).__finalize__(self, method="isin")
 
     # ----------------------------------------------------------------------
     # Add index and columns
