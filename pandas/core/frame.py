@@ -8331,7 +8331,7 @@ NaN 12.3   33.0
             result.index = self.index.take(result.index)
         result = result.reindex(columns=self.columns, copy=False)
 
-        return result
+        return result.__finalize__(self, method="explode")
 
     def unstack(self, level: Level = -1, fill_value=None):
         """
@@ -8415,7 +8415,7 @@ NaN 12.3   33.0
             value_name=value_name,
             col_level=col_level,
             ignore_index=ignore_index,
-        )
+        ).__finalize__(self, method="melt")
 
     # ----------------------------------------------------------------------
     # Time series-related
@@ -9277,7 +9277,7 @@ NaN 12.3   33.0
             copy=copy,
             indicator=indicator,
             validate=validate,
-        )
+        ).__finalize__(self, method="merge")
 
     def round(
         self, decimals: int | dict[IndexLabel, int] | Series = 0, *args, **kwargs
@@ -10375,7 +10375,7 @@ NaN 12.3   33.0
             res = self.quantile(
                 [q], axis=axis, numeric_only=numeric_only, interpolation=interpolation
             )
-            return res.iloc[0]
+            return res.iloc[0].__finalize__(self, method="quantile")
 
         q = Index(q, dtype=np.float64)
         data = self._get_numeric_data() if numeric_only else self
@@ -10394,7 +10394,7 @@ NaN 12.3   33.0
         res = data._mgr.quantile(qs=q, axis=1, interpolation=interpolation)
 
         result = self._constructor(res)
-        return result
+        return result.__finalize__(self, method="quantile")
 
     @doc(NDFrame.asfreq, **_shared_doc_kwargs)
     def asfreq(
