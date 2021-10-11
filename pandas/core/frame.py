@@ -7355,7 +7355,7 @@ Keep all original rows and columns and also all original values
             result[col] = arr
 
         # convert_objects just in case
-        return self._constructor(result, index=new_index, columns=new_columns)
+        return self._constructor(result, index=new_index, columns=new_columns).__finalize__(self, method="combine")
 
     def combine_first(self, other: DataFrame) -> DataFrame:
         """
@@ -10294,7 +10294,7 @@ NaN 12.3   33.0
         if data.empty:
             data.index = default_index(0)
 
-        return data
+        return data.__finalize__(self, method="mode")
 
     def quantile(
         self,

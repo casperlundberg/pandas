@@ -129,7 +129,6 @@ _all_methods = [
             frame_data,
             operator.methodcaller("combine", pd.DataFrame(*frame_data), operator.add),
         ),
-        marks=not_implemented_mark,
     ),
     pytest.param(
         (
@@ -137,7 +136,6 @@ _all_methods = [
             frame_data,
             operator.methodcaller("combine_first", pd.DataFrame(*frame_data)),
         ),
-        marks=not_implemented_mark,
     ),
     pytest.param(
         (
@@ -238,19 +236,10 @@ _all_methods = [
         (pd.DataFrame, frame_data, operator.methodcaller("idxmax")),
         marks=not_implemented_mark,
     ),
-    pytest.param(
-        (pd.DataFrame, frame_data, operator.methodcaller("mode")),
-        marks=not_implemented_mark,
-    ),
-    pytest.param(
-        (pd.DataFrame, frame_data, operator.methodcaller("quantile")),
-    ),
-    pytest.param(
-        (pd.DataFrame, frame_data, operator.methodcaller("quantile", q=[0.25, 0.75])),
-    ),
-    pytest.param(
-        (pd.DataFrame, frame_data, operator.methodcaller("quantile")),
-    ),
+    (pd.DataFrame, frame_data, operator.methodcaller("mode")),
+    (pd.DataFrame, frame_data, operator.methodcaller("quantile")),
+    (pd.DataFrame, frame_data, operator.methodcaller("quantile", q=[0.25, 0.75])),
+    (pd.DataFrame, frame_data, operator.methodcaller("quantile")),
     (
         pd.DataFrame,
         ({"A": [1]}, [pd.Period("2000", "D")]),
